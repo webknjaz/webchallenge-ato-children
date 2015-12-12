@@ -1,6 +1,10 @@
 doctype html
 include templates/header
-include templates/footer   
+include templates/footer
+include templates/logo
+include templates/form
+include templates/letters
+   
 html(lang="en")
   head
      title Some Name here
@@ -11,5 +15,12 @@ html(lang="en")
      link(rel="stylesheet" href="../fa/css/font-awesome.min.css")
   body
     .gradient-block
-    mixin header  
+    mixin header
+    .content
+      .content-item
+        mixin logo
+      .content-item
+        mixin form
+      .content-item
+        mixin letters  
     mixin footer
