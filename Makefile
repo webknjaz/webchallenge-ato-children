@@ -19,6 +19,7 @@ db:
 	$(MGR) migrate
 
 static:
+	$(MGR) collectstatic --noinput
 	gulp build
 
 all: dev
