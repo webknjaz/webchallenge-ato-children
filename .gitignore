@@ -62,5 +62,5 @@ target/
 
 node_modules
 static/index.html
-static/main.css
-static/app.js
+static/css/main.css
+static/js/app.js
