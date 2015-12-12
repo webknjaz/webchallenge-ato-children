@@ -116,3 +116,30 @@ header {
         border: 1px solid #FFFFFF; }
       header ul li:hover {
         text-decoration: underline; }
+
+.content {
+  padding: 0 150px; }
+  .content .content-item {
+    display: flex;
+    justify-content: center; }
+
+.form {
+  min-height: 100px;
+  width: 100%; }
+  .form .form-triangle {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 calc(50vw - 150px) 100px calc(50vw - 150px);
+    border-color: transparent transparent #FFFFFF transparent; }
+  .form .form-body {
+    background-color: #FFFFFF;
+    font-family: 'Campton-Book';
+    padding: 0 15px 15px 15px; }
+    .form .form-body .title {
+      text-align: center;
+      font-weight: 900;
+      font-size: 24px;
+      font-family: 'Campton-Black';
+      text-transform: uppercase;
+      color: #76C4D0; }

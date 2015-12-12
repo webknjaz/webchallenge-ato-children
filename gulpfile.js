@@ -103,7 +103,6 @@ gulp.task('build', [
 
 gulp.task('webserver', () => {
   connect.server({
-    root: clientRoot,
     port: 8000,
     livereload: true
   })
