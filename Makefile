@@ -20,7 +20,7 @@ dev: dev-deps db build-static
 run: db
 	$(WSGI) ato_children.wsgi $1
 
-production: run build-static
+production: build-static run
 
 django-static:
 	$(MGR) collectstatic --noinput
