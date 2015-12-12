@@ -6,6 +6,7 @@ WSGI=gunicorn
 all: dev
 
 deps:
+	npm install --only=dev
 	$(PINST) requirements.txt
 
 dev-deps:
