@@ -26,7 +26,7 @@ django-static:
 	$(MGR) collectstatic --noinput
 
 gulp-static:
-	gulp build
+	gulp build-prod
 
 build-static: django-static gulp-static
 
