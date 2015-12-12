@@ -1,1 +1,1 @@
-web: make static; make run
+web: make build-static; make run

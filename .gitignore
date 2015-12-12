@@ -59,6 +59,8 @@ target/
 # Ignore local db
 db.sqlite3
 local_settings.py
+static/admin/
+static/django_extensions/
 
 # Frontend stuff
 

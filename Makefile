@@ -18,7 +18,7 @@ run: deps db
 db:
 	$(MGR) migrate
 
-static:
+build-static:
 	$(MGR) collectstatic --noinput
 	gulp build
 
