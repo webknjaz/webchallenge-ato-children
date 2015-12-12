@@ -3,5 +3,13 @@
     hooks:
     -   id: trailing-whitespace
     -   id: flake8
-    # -   id: scss-lint
-    #     language_version: 1.9.3-p484
+
+#-   repo: git://github.com/pre-commit/mirrors-scss-lint
+#    sha: master
+#    hooks:
+#    -   id: scss-lint
+
+#-   repo: git@github.com:elidupuis/mirrors-jscs.git
+#    sha: master
+#    hooks:
+#    -   id: jscs
