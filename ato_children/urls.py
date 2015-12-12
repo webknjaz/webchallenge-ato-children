@@ -23,6 +23,7 @@ urlpatterns = [
     # url(r'^$', TemplateView.as_view(template_name='index.html')),
     url(r'^$', serve,
         {'path': 'index.html', 'document_root': 'static'}),
+    url(r'^api/', include('ato_children.api.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^static/(?P<path>.*)$', serve,
         {'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
