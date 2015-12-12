@@ -9,17 +9,26 @@ deps:
 dev-deps:
 	$(PINST) dev.txt
 
-dev: dev-deps db
-	$(MGR) runserver_plus 0.0.0.0:8080
-
-run: deps db
-	$(WSGI) ato_children.wsgi
-
 db:
 	$(MGR) migrate
 
-build-static:
+provision: db build-static
+
+dev: dev-deps provision
+	$(MGR) runserver_plus 0.0.0.0:8080
+
+run: deps provision
+	$(WSGI) ato_children.wsgi
+
+django-static:
 	$(MGR) collectstatic --noinput
+
+gulp-static:
 	gulp build
+
+build-static: django-static gulp-static
+
+run-front:
+	gulp
 
 all: dev
