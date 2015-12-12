@@ -3,6 +3,8 @@ PINST=pip install -r
 WSGI=gunicorn
 
 
+all: dev
+
 deps:
 	$(PINST) requirements.txt
 
@@ -30,5 +32,3 @@ build-static: django-static gulp-static
 
 run-front:
 	gulp
-
-all: dev
