@@ -23,11 +23,10 @@ run: deps provision
 	$(WSGI) ato_children.wsgi $1
 
 django-static:
-	$(MGR) collectstatic --noinput
+	$(MGR) collectstatic --noinput &
 
 gulp-static:
-	npm install --only=dev
-	gulp build-prod
+	{ npm install --only=dev ; gulp build-prod } &
 
 build-static: django-static gulp-static
 
