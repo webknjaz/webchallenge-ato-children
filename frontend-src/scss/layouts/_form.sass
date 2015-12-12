@@ -5,12 +5,17 @@
     width: 0
     height: 0
     border-style: solid
-    border-width: 0 calc(50vw - 150px) 100px calc(50vw - 150px)
+    border-width: 0 calc(50vw - 150px) 80px calc(50vw - 150px)
     border-color: transparent transparent $white transparent
   .form-body
     background-color: $white
     font-family: 'Campton-Book'
-    padding: 0 15px 15px 15px
+    padding: 0 15px 60px 60px
+    p
+      padding: 10px 0
+      font-size: 17px
+      color: $dark-blue
+      line-height: 22px
     .title
       text-align: center
       font-weight: 900
@@ -18,3 +23,21 @@
       font-family: 'Campton-Black'
       text-transform: uppercase
       color: $light-blue
+      padding-bottom: 20px
+
+  .form-calls
+    display: flex
+    justify-content: center
+    .call-to-action
+      margin-top: 40px
+      max-width: 40%
+      min-width: 40%
+      p
+        text-align: justify
+      &.or
+        max-width: 10%
+        min-width: 10%
+        .title
+          font-size: 14px
+          text-transform: none
+          font-weight: 100
