@@ -8,7 +8,7 @@ var livereload = require('gulp-livereload')
 var babelify = require('babelify')
 var watchify = require('watchify')
 var browserify = require('browserify')
-
+var exit = require('gulp-exit')
 
 var clientRoot = 'static'
 var sourceRoot = 'frontend-src'
@@ -107,6 +107,49 @@ gulp.task('webserver', () => {
     livereload: true
   })
 })
+
+gulp.task('jade-prod', () => {
+  gulp.src(`${sourceRoot}/jade/index.jade`)
+    .pipe(jade({pretty: true}))
+    .pipe(gulp.dest(paths.dst.html))
+})
+
+gulp.task('scss-prod', () => {
+  gulp.src(`${sourceRoot}/scss/main.scss`)
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest(paths.dst.css))
+})
+
+gulp.task('js-prod', () => {
+  var bundler = browserify({
+    entries: [`${sourceRoot}/js/main`],
+    transform: [babelify],
+    extensions: ['.js', '.jsx'],
+    debug: true,
+    cache: {},
+    packageCache: {},
+    fullPaths: true
+  })
+  var wundler = watchify(bundler, {poll: 100})
+  function build (file) {
+    if (file) gutil.log('Recompiling ' + file)
+    wundler
+      .bundle()
+      .on('error', gutil.log.bind(gutil, 'Browserify error'))
+      .pipe(source('app.js'))
+      .pipe(gulp.dest(paths.dst.js))
+      .pipe(exit())
+  }
+
+  build()
+})
+
+
+gulp.task('build-prod', [
+  'jade-prod',
+  'scss-prod',
+  'js-prod'
+])
 
 gulp.task('default', [
   'build',
