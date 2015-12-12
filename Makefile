@@ -17,7 +17,7 @@ db:
 dev: dev-deps db build-static
 	$(MGR) runserver_plus 0.0.0.0:8080 --traceback $1
 
-run: deps db
+run: db
 	$(WSGI) ato_children.wsgi $1
 
 production: run build-static
