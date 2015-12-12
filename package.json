@@ -1,0 +1,42 @@
+{
+  "name": "make_them_happy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "static/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webknjaz/webchallenge-ato-children.git"
+  },
+  "author": "team #7",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/webknjaz/webchallenge-ato-children"
+  },
+  "homepage": "https://github.com/webknjaz/webchallenge-ato-children",
+  "devDependencies": {
+    "babelify": "^6.4.0",
+    "browserify": "^11.2.0",
+    "fullpage.js": "^2.7.6",
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.4.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.0.5",
+    "fetchify": "0.0.2",
+    "jquery": "^2.1.4",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-fetch": "0.0.7",
+    "whatwg-fetch": "^0.10.1"
+  }
+}

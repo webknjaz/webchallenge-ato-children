@@ -59,3 +59,10 @@ target/
 # Ignore local db
 db.sqlite3
 local_settings.py
+
+# Frontend stuff
+
+node_modules
+static/index.html
+static/css/main.css
+static/js/app.js
