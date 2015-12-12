@@ -1,20 +1,10 @@
-@mixin background-image-retina($file, $type, $size, $positionX: left, $positionY: top, $background-repeat: no-repeat) {
+@mixin background-image-retina($file, $type, $size, $position-x: left, $position-y: top, $background-repeat: no-repeat) {
   background-image: url($file + '.' + $type);
   background-size: $size;
-  background-position: $positionX $positionY;
+  background-position: $position-x $position-y;
   background-repeat: $background-repeat;
 
   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-    & {
-      background-image: url($file + '_2x.' + $type);
-    }
-  }
-
-  @media screen and (max-width: 480px){
-    & {
-      //width: 60%;
-      // height: 100%;
-      //width: auto;
-    }
+    background-image: url($file + '_2x.' + $type);
   }
 }
