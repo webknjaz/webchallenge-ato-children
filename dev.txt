@@ -1,0 +1,10 @@
+-r requirements.txt
+
+pre-commit==0.6.4
+
+flake8==2.5.0
+pyflakes==1.0.0
+pep8==1.5.7
+
+ipdb==0.8.1
+ipython==4.0.0
