@@ -14,13 +14,13 @@ dev-deps:
 db:
 	$(MGR) migrate
 
-dev: dev-deps db build-static
+provision: db build-static
+
+dev: dev-deps provision
 	$(MGR) runserver_plus 0.0.0.0:8080 --traceback $1
 
-run: db
-	$(WSGI) ato_children.wsgi $1 &
-
-production: build-static run
+run: deps db
+	$(WSGI) ato_children.wsgi $1
 
 django-static:
 	$(MGR) collectstatic --noinput

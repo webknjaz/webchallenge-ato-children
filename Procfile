@@ -1,1 +1,1 @@
-web: make production
+web: make build-static &; make run
