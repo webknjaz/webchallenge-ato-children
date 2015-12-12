@@ -55,3 +55,12 @@ docs/_build/
 
 # PyBuilder
 target/
+
+
+
+# Frontend stuff
+
+node_modules
+static/index.html
+static/main.css
+static/app.js
