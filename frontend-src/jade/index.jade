@@ -1,6 +1,10 @@
 doctype html
 include templates/header
 include templates/footer
+include templates/logo
+include templates/form
+include templates/letters
+
 html(lang="en")
   head
      title Some Name here
@@ -8,8 +12,15 @@ html(lang="en")
      meta(name="viewport", content="width=device-width, initial-scale=1")
      link(rel="stylesheet", type="text/css", href="css/main.css")
      script(type="text/javascript", src="js/app.js")
-     link(rel="stylesheet" href="../fa/css/font-awesome.min.css")
+     link(rel="stylesheet" href="../static/fa/css/font-awesome.min.css")
   body
     .gradient-block
     mixin header
+    .content
+      .content-item
+        mixin logo
+      .content-item
+        mixin form
+      .content-item
+        mixin letters
     mixin footer
