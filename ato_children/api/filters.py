@@ -7,4 +7,4 @@ class GiftFilter(django_filters.FilterSet):
     """docstring for GiftFilter"""
     class Meta:
         model = Gift
-        fields = ['region']
+        fields = ['region', 'status']
