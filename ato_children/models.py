@@ -61,10 +61,6 @@ class Gift(models.Model):
     def status_text(self):
         return self.STATUSES[self.status][1]
 
-    def __str__(self):
-        return "{}'s Gift request. Volunteers making presents: {}".format(
-            self.mom, ', '.join(self.volunteers))
-
 
 class Volunteer(models.Model):
     """Volunteer is a person who wants to make a gift to a child"""
