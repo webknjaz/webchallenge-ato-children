@@ -12,7 +12,7 @@ dev-deps:
 	$(PINST) dev.txt
 
 db:
-	$(MGR) migrate
+	$(MGR) migrate --noinput
 
 provision: db build-static
 
