@@ -1,0 +1,76 @@
+.form-common
+  padding: 50px 0
+  width: 40%
+  margin: auto
+  & *
+    font-size: 18px
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+  .form-group
+    padding: 10px 0
+    & *
+      background-color: $dark-blue
+      border: none
+      color: $white
+      -webkit-box-sizing: border-box
+      -moz-box-sizing: border-box
+      box-sizing: border-box
+    input
+      padding: 0 15px
+      height: 40px
+      line-height: 40px
+      width: 100%
+      display: block
+      &::-webkit-input-placeholder
+        color: $white
+      &:-moz-placeholder
+        color: $white
+        opacity:  1
+      &::-moz-placeholder
+        color: $white
+        opacity:  1
+      &:-ms-input-placeholder
+        color: $white
+  textarea
+    color: $white
+    max-width: 100%
+    background-color: $dark-blue
+    width: 100%
+    min-height: 200px
+    border: none
+    border-radius: none
+    padding: 10px 15px
+  select
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+    height: 40px
+    line-height: 40px
+    width: 100%
+    background-color: $dark-blue
+    color: $white
+    padding-left: 15px
+    border: none
+    outline: none
+    border-radius: 0
+  button
+    height: 40px
+    line-height: 40px
+    width: 100%
+    display: block
+    color: $white
+    cursor: pointer
+    border: none
+    border-radius: 0
+    background-color: $light-blue
+    margin-top: 30px
+    &:disabled
+      background-color: $white
+      border: 1px $dark-blue solid
+      color: $dark-blue
+      cursor: default
+      &:hover
+        opacity: 1
+    &:hover
+      opacity: 0.9

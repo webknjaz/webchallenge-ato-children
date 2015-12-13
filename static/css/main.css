@@ -50,10 +50,6 @@ table {
 div {
   box-sizing: border-box; }
 
-textarea {
-  font-family: 'Campton-Book' !important;
-  font-size: 11px !important; }
-
 img {
   max-width: 100%; }
 
@@ -95,6 +91,83 @@ img {
 @font-face {
   font-family: "Campton-Light";
   src: url("../fonts/Campton-Light.ttf"); }
+
+.form-common {
+  padding: 50px 0;
+  width: 40%;
+  margin: auto; }
+  .form-common * {
+    font-size: 18px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+  .form-common .form-group {
+    padding: 10px 0; }
+    .form-common .form-group * {
+      background-color: #373C56;
+      border: none;
+      color: #FFFFFF;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box; }
+    .form-common .form-group input {
+      padding: 0 15px;
+      height: 40px;
+      line-height: 40px;
+      width: 100%;
+      display: block; }
+      .form-common .form-group input::-webkit-input-placeholder {
+        color: #FFFFFF; }
+      .form-common .form-group input:-moz-placeholder {
+        color: #FFFFFF;
+        opacity: 1; }
+      .form-common .form-group input::-moz-placeholder {
+        color: #FFFFFF;
+        opacity: 1; }
+      .form-common .form-group input:-ms-input-placeholder {
+        color: #FFFFFF; }
+  .form-common textarea {
+    color: #FFFFFF;
+    max-width: 100%;
+    background-color: #373C56;
+    width: 100%;
+    min-height: 200px;
+    border: none;
+    border-radius: none;
+    padding: 10px 15px; }
+  .form-common select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    background-color: #373C56;
+    color: #FFFFFF;
+    padding-left: 15px;
+    border: none;
+    outline: none;
+    border-radius: 0; }
+  .form-common button {
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    display: block;
+    color: #FFFFFF;
+    cursor: pointer;
+    border: none;
+    border-radius: 0;
+    background-color: #99BDC3;
+    margin-top: 30px; }
+    .form-common button:disabled {
+      background-color: #FFFFFF;
+      border: 1px #373C56 solid;
+      color: #373C56;
+      cursor: default; }
+      .form-common button:disabled:hover {
+        opacity: 1; }
+    .form-common button:hover {
+      opacity: 0.9; }
 
 body {
   background-color: #99BDC3;
