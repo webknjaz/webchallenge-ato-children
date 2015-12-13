@@ -1,5 +1,8 @@
 from django.contrib.auth.models import User
-from rest_framework import viewsets
+
+from rest_framework import viewsets, status, permissions
+from rest_framework.response import Response
+from rest_framework.decorators import permission_classes
 
 from ..models import Gift, Volunteer, City
 
@@ -26,3 +29,9 @@ class VolunteeViewSet(viewsets.ModelViewSet):
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer
+
+
+@permission_classes((permissions.AllowAny,))
+class RegionViewSet(viewsets.ViewSet):
+    def list(self, request, format=None):
+        return Response(City.regions_dict(), status=status.HTTP_200_OK)

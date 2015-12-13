@@ -73,6 +73,6 @@ class City(models.Model):
     name = models.CharField(max_length=32)
     region = models.IntegerField(choices=REGIONS)
 
-    @property
-    def regions_dict(self):
-        return [{'id': id, 'name': name} for id, name in self.REGIONS]
+    @staticmethod
+    def regions_dict():
+        return [{'id': id, 'name': name} for id, name in City.REGIONS]
