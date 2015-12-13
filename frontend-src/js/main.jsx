@@ -2,7 +2,7 @@ let React = require('react')
 let ReactDOM = require('react-dom')
 let Formsy = require('formsy-react');
 let $ = require ('jquery')
-  var api_base = 'http://ato-children.herokuapp.com'
+var api_base = 'http://ato-children.herokuapp.com'
 // var api_base = 'http://192.168.1.184:8080'
 
 var scrollDown = ($target) => {
@@ -57,6 +57,7 @@ var LetterForm = React.createClass({
   },
   submit: function (model) {
     model.letter = this.state.letterText
+    model.tel.replace(/[^\d]/gi, '').replace(/^3?8/gi, '')
     $.ajax({
       method: "POST",
       url: (api_base + '/api/gifts/'),
@@ -162,7 +163,7 @@ var Letters = React.createClass({
       <div>
         <Regions source="/api/regions/"/>
         {this.state.results.map(function(result, index){
-          return <Letter data={result}/>;
+          return <Letter key={index} data={result}/>;
         })}
       </div>
     )
@@ -170,21 +171,27 @@ var Letters = React.createClass({
 })
 
 var Letter = React.createClass({
+  handleClick: function(){
+    ReactDOM.render(
+      <Popup id = {this.props.id}/>,
+      document.getElementById('popupTarget')
+    )
+  },
   render: function(){
     return(
-    <div className="letter">
-      <div className="location">
-        <i className="fa fa-map-marker"></i>
-         <span> {this.props.data.region_text}, {this.props.data.city} </span>
+      <div className="letter" key={this.props.data.id}>
+        <div className="location">
+          <i className="fa fa-map-marker"></i>
+           <span> {this.props.data.region_text}, {this.props.data.city} </span>
+        </div>
+        <div className="letter-text">
+          {this.props.data.letter}
+        </div>
+        <div className="button-accept-letter" onClick={this.handleClick}>
+          <i className="fa fa-gift"></i>
+          Я зможу дістати подарунки
+        </div>
       </div>
-      <div className="letter-text">
-        {this.props.data.letter}
-      </div>
-      <div className="button-accept-letter">
-        <i className="fa fa-gift"></i>
-        Я зможу дістати подарунки
-      </div>
-    </div>
     )
   }
 })
@@ -248,6 +255,72 @@ var Region = React.createClass({
   }
 });
 
+var Popup = React.createClass({
+  handleClick: function(){
+    ReactDOM.unmountComponentAtNode(document.getElementById('popupTarget'))
+  },
+  render: function(){
+    return(
+      <div className="popup-back" onClick={this.handleClick}>
+        <PopupFace id={this.props.id}/>
+      </div>
+    )
+  }
+})
+
+var PopupFace = React.createClass({
+  handleClick: function(e){
+    e.stopPropagation()
+  },
+  render: function(){
+    return(
+      <div className="popup-front" onClick={this.handleClick}>
+        <PopupForm id={this.props.id}/>
+      </div>
+    )
+  }
+})
+
+var PopupForm = React.createClass({
+  getInitialState: function () {
+    return {
+      canSubmit: false,
+    }
+  },
+  enableButton: function () {
+    this.setState({
+      canSubmit: true
+    });
+  },
+  disableButton: function () {
+    this.setState({
+      canSubmit: false
+    });
+  },
+  submit: function (model) {
+    model.cover_letter = 'x'
+    model.tel.replace(/[^\d]/gi, '').replace(/^3?8/gi, '')
+    debugger
+    model.gift = this.props.id
+    $.ajax({
+      method: "POST",
+      url: (api_base + '/api/volunteers/'),
+      data: model
+    })
+    .done(function( msg ) {
+      ReactDOM.unmountComponentAtNode(document.getElementById('popupTarget'))
+    });
+  },
+  render: function(){
+    return(
+      <Formsy.Form onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="form-common" id="letterform">
+        <ValidatedInput type="text"  placeholder="Ім'я" name="name" validationError="Це не схоже на ім'я" required/>
+        <ValidatedInput type="text"  placeholder="Номер телефону" name="tel" validations={{matchRegexp: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/}} validationError="Це не схоже на номер телефону" required/>
+        <button type="submit" disabled={!this.state.canSubmit}>Відправити координаторам</button>
+      </Formsy.Form>
+    )
+  }
+})
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <WriteLetterButton/>,

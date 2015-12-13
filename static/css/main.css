@@ -169,6 +169,26 @@ img {
     .form-common button:hover {
       opacity: 0.9; }
 
+.popup-back {
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex; }
+  .popup-back .popup-front {
+    background-color: #FFFFFF;
+    z-index: 3;
+    border-radius: 4px;
+    height: 400px;
+    max-width: 80%;
+    min-width: 80%;
+    margin: auto;
+    display: flex;
+    align-items: center; }
+
 body {
   background-color: #99BDC3;
   font-family: 'Campton-Light'; }
