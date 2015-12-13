@@ -4,6 +4,7 @@ include templates/footer
 include templates/logo
 include templates/form
 include templates/letters
+include templates/popup
 
 html(lang="en")
   head
@@ -14,6 +15,7 @@ html(lang="en")
      script(type="text/javascript", src="/static/js/app.js")
      link(rel="stylesheet" href="/static/fa/css/font-awesome.min.css")
   body
+    mixin popup
     .gradient-block
     mixin header
     .content
