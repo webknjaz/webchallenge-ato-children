@@ -34,4 +34,6 @@ class CityViewSet(viewsets.ModelViewSet):
 @permission_classes((permissions.AllowAny,))
 class RegionViewSet(viewsets.ViewSet):
     def list(self, request, format=None):
-        return Response(City.regions_dict(), status=status.HTTP_200_OK)
+        regions = City.regions_dict()
+        return Response({"results": regions, "count": len(regions)},
+                        status=status.HTTP_200_OK)
