@@ -2,7 +2,8 @@ let React = require('react')
 let ReactDOM = require('react-dom')
 let Formsy = require('formsy-react');
 let $ = require ('jquery')
-var api_base = 'http://ato-children.herokuapp.com'
+// var api_base = 'http://ato-children.herokuapp.com'
+var api_base = 'http://192.168.1.184:8080'
 
 var scrollDown = ($target) => {
   $('html, body').animate({
@@ -56,7 +57,14 @@ var LetterForm = React.createClass({
   },
   submit: function (model) {
     model.letter = this.state.letterText
-    console.log(model)
+    $.ajax({
+      method: "POST",
+      url: (api_base + '/api/gifts/'),
+      data: model
+    })
+    .done(function( msg ) {
+      alert("Send");
+    });
   },
   textDataEntered: function(e){
     this.setState({
@@ -69,8 +77,8 @@ var LetterForm = React.createClass({
   render: function(){
     return(
       <Formsy.Form onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="form-common" id="letterform">
-        <ValidatedInput type="text"  placeholder="Ім'я" name="name" validationError="Це не схоже на ім'я" required/>
-        <ValidatedInput type="text"  placeholder="Номер телефону" name="phone" validations={{matchRegexp: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/}} validationError="Це не схоже на номер телефону" required/>
+        <ValidatedInput type="text"  placeholder="Ім'я" name="mom" validationError="Це не схоже на ім'я" required/>
+        <ValidatedInput type="text"  placeholder="Номер телефону" name="tel" validations={{matchRegexp: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/}} validationError="Це не схоже на номер телефону" required/>
         <ApiSelect source="/api/regions/" onChange="regionSelected" name="region"/>
         <ValidatedInput type="text" placeholder="Місто/селище" name="city" validationError="Вкажіть назву міста" required/>
         <textarea name="letter" form="letterform" value={this.state.letterText} onChange={this.textDataEntered} required/>
