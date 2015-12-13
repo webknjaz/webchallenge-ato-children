@@ -2,8 +2,8 @@ let React = require('react')
 let ReactDOM = require('react-dom')
 let Formsy = require('formsy-react');
 let $ = require ('jquery')
-// var api_base = 'http://ato-children.herokuapp.com'
-var api_base = 'http://192.168.1.184:8080'
+  var api_base = 'http://ato-children.herokuapp.com'
+// var api_base = 'http://192.168.1.184:8080'
 
 var scrollDown = ($target) => {
   $('html, body').animate({
@@ -28,7 +28,7 @@ var WriteLetterButton = React.createClass({
 
 var SeeLetterButton = React.createClass({
   handleClick: () => {
-    scrollDown($('#LettersTarget'))
+    scrollDown($('#lettersTarget'))
   },
   render: function(){
     return(
@@ -138,6 +138,114 @@ var ApiSelect = React.createClass({
        </select>
     )
   }
+})
+
+var Letters = React.createClass({
+  getInitialState: function(){
+    return {results: []}
+  },
+  loadMoreLetters: function(){
+    var url = api_base + this.props.source
+    $.get(url, function(result) {
+      if (this.isMounted()) {
+        this.setState({
+          results: $.merge(this.state.results, result.results),
+        })
+      }
+    }.bind(this))
+  },
+  componentDidMount: function() {
+    this.loadMoreLetters()
+  },
+  render: function(){
+    return(
+      <div>
+        <Regions source="/api/regions/"/>
+        {this.state.results.map(function(result, index){
+          return <Letter data={result}/>;
+        })}
+      </div>
+    )
+  }
+})
+
+var Letter = React.createClass({
+  render: function(){
+    return(
+    <div className="letter">
+      <div className="location">
+        <i className="fa fa-map-marker"></i>
+         <span> {this.props.data.region_text}, {this.props.data.city} </span>
+      </div>
+      <div className="letter-text">
+        {this.props.data.letter}
+      </div>
+      <div className="button-accept-letter">
+        <i className="fa fa-gift"></i>
+        Я зможу дістати подарунки
+      </div>
+    </div>
+    )
+  }
+})
+
+// Regions
+
+var Regions = React.createClass({
+  getInitialState: function(){
+    return {results: []}
+  },
+  componentDidMount: function() {
+    $.get((api_base + this.props.source), function(result) {
+      if (this.isMounted()) {
+        this.setState({
+          results: result.results,
+        })
+      }
+    }.bind(this))
+  },
+  render: function() {
+    var length = this.state.results.length
+    var column_length = Math.floor(this.state.results.length/5)
+    var columns = []
+    for (var i = 0; i < 5; i++) {
+      columns[i] = this.state.results.slice(column_length*i, (column_length*(i+1)))
+      if (i==4) columns[i] = this.state.results.slice(column_length*i, length)
+    }
+    return(
+       <div className="regions-block">
+         {columns.map(function(result, index) {
+            return <RegionsColumn key={index} data={result}/>;
+         })}
+       </div>
+    )
+  }
+});
+
+var RegionsColumn = React.createClass({
+  render: function() {
+    return(
+       <ul>
+         {this.props.data.map(function(result, index) {
+            return <Region key={index} data={result}/>;
+         })}
+       </ul>
+    )
+  }
+});
+
+
+var Region = React.createClass({
+  handleClick: function() {
+    // ReactDOM.unmountComponentAtNode(document.getElementById('resultsTarget'))
+    // ReactDOM.render(
+    //   <Stores source={api_base +"/Regionies/"+this.props.data.id+"/stores"} count="8" searchable={false} Regiony={true} scrollToBottom={true}/>,
+    //   document.getElementById('resultsTarget')
+    // )
+  },
+  render: function() {
+    return <li key={this.props.data.id} onClick={this.handleClick}> {this.props.data.name}</li>;
+  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -148,5 +256,9 @@ document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <SeeLetterButton/>,
     document.getElementById('seeLetterTarget')
+  )
+  ReactDOM.render(
+    <Letters source="/api/gifts/"/>,
+    document.getElementById('lettersTarget')
   )
 })
