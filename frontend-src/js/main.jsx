@@ -173,7 +173,7 @@ var Letters = React.createClass({
 var Letter = React.createClass({
   handleClick: function(){
     ReactDOM.render(
-      <Popup id = {this.props.id}/>,
+      <Popup data={this.props.data.id}/>,
       document.getElementById('popupTarget')
     )
   },
@@ -262,7 +262,7 @@ var Popup = React.createClass({
   render: function(){
     return(
       <div className="popup-back" onClick={this.handleClick}>
-        <PopupFace id={this.props.id}/>
+        <PopupFace data={this.props.data}/>
       </div>
     )
   }
@@ -275,7 +275,7 @@ var PopupFace = React.createClass({
   render: function(){
     return(
       <div className="popup-front" onClick={this.handleClick}>
-        <PopupForm id={this.props.id}/>
+        <PopupForm data={this.props.data}/>
       </div>
     )
   }
@@ -300,8 +300,7 @@ var PopupForm = React.createClass({
   submit: function (model) {
     model.cover_letter = 'x'
     model.tel.replace(/[^\d]/gi, '').replace(/^3?8/gi, '')
-    debugger
-    model.gift = this.props.id
+    model.gift = this.props.data
     $.ajax({
       method: "POST",
       url: (api_base + '/api/volunteers/'),
