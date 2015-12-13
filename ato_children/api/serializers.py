@@ -14,7 +14,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class GiftSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Gift
-        fields = ('url', 'mom', 'tel', 'city', 'region', 'region_text',
+        fields = ('id', 'url', 'mom', 'tel', 'city', 'region', 'region_text',
                   'letter', 'submitted_date', 'status', 'status_text')
 
 
