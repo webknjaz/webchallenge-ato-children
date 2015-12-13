@@ -10,18 +10,29 @@ from .serializers import (UserSerializer, GiftSerializer,
                           VolunteerSerializer, CitySerializer)
 
 
+class AllowSubmitAny(permissions.DjangoModelPermissionsOrAnonReadOnly):
+    """
+    AllowSubmitAny extends default model access class and allows create one
+    """
+    def has_permission(self, request, view):
+        return (request.method == 'POST' or
+                super(AllowSubmitAny, self).has_permission(request, view))
+
+
 # ViewSets define the view behavior.
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
+@permission_classes((AllowSubmitAny,))
 class GiftViewSet(viewsets.ModelViewSet):
     queryset = Gift.objects.all()
     serializer_class = GiftSerializer
 
 
-class VolunteeViewSet(viewsets.ModelViewSet):
+@permission_classes((AllowSubmitAny,))
+class VolunteerViewSet(viewsets.ModelViewSet):
     queryset = Volunteer.objects.all()
     serializer_class = VolunteerSerializer
 
