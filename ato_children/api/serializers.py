@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from ..models import Gift, Volunteer, City
+from ..models import Gift, Volunteer
 
 
 # Serializers define the API representation.
@@ -14,8 +14,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class GiftSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Gift
-        fields = ('url', 'mom', 'tel', 'city', 'letter', 'submitted_date',
-                  'status', 'status_text')
+        fields = ('url', 'mom', 'tel', 'city', 'region', 'region_text',
+                  'letter', 'submitted_date', 'status', 'status_text')
 
 
 class VolunteerSerializer(serializers.HyperlinkedModelSerializer):
@@ -23,9 +23,3 @@ class VolunteerSerializer(serializers.HyperlinkedModelSerializer):
         model = Volunteer
         fields = (
             'url', 'name', 'tel', 'cover_letter', 'submitted_date', 'gift')
-
-
-class CitySerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = City
-        fields = ('url', 'name', 'region')
