@@ -68,4 +68,4 @@ staticfiles/
 node_modules
 static/index.html
 static/css/main.css
-static/js/app.js
+#static/js/app.js
