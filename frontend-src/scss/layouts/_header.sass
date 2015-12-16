@@ -4,6 +4,10 @@ header
     float: right
     padding-top: 40px
     margin-right: $margin-content-big
+    @media screen and (max-width: 1000px)
+      margin-right: $margin-content-medium
+    @media screen and (max-width: 700px)
+      margin-right: $margin-content-small
     li
       display: inline-block
       color: $white

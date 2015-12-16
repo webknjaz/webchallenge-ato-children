@@ -2,6 +2,10 @@ footer
   color: $white
   background-color: $dark-blue
   padding: 15px $margin-content-big
+  @media screen and (max-width: 1000px)
+    padding: 15px $margin-content-medium
+  @media screen and (max-width: 700px)
+    padding: 15px $margin-content-small
   .contact-block
     width: 100%
     display: flex
@@ -11,6 +15,8 @@ footer
     flex-direction: row
     .contact
       padding: 30px
+      @media screen and (max-width: 550px)
+        padding: 30px 5px
       font-size: 20px
       a
         color: $white

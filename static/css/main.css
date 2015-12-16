@@ -96,6 +96,9 @@ img {
   padding: 50px 0;
   width: 40%;
   margin: auto; }
+  @media screen and (max-width: 1000px) {
+    .form-common {
+      width: 100%; } }
   .form-common * {
     font-size: 18px;
     -webkit-box-sizing: border-box;
@@ -211,6 +214,12 @@ header {
     float: right;
     padding-top: 40px;
     margin-right: 150px; }
+    @media screen and (max-width: 1000px) {
+      header ul {
+        margin-right: 50px; } }
+    @media screen and (max-width: 700px) {
+      header ul {
+        margin-right: 20px; } }
     header ul li {
       display: inline-block;
       color: #FFFFFF;
@@ -227,6 +236,12 @@ header {
 
 .content {
   padding: 0 150px; }
+  @media screen and (max-width: 1000px) {
+    .content {
+      padding: 0 50px; } }
+  @media screen and (max-width: 700px) {
+    .content {
+      padding: 0 20px; } }
   .content .content-item {
     display: flex;
     justify-content: center;
@@ -242,6 +257,9 @@ header {
     border-style: solid;
     border-width: 0 calc(50vw - 150px) 80px calc(50vw - 150px);
     border-color: transparent transparent #FFFFFF transparent; }
+    @media screen and (max-width: 1000px) {
+      .form .form-triangle {
+        display: none; } }
   .form .form-body {
     background-color: #FFFFFF;
     font-family: 'Campton-Book';
@@ -264,13 +282,21 @@ header {
       text-transform: uppercase;
       color: #99BDC3;
       padding-bottom: 20px; }
+      @media screen and (max-width: 1000px) {
+        .form .form-body .title {
+          padding-top: 30px; } }
   .form .form-calls {
     display: flex;
-    justify-content: center; }
+    justify-content: center;
+    flex-wrap: wrap; }
     .form .form-calls .call-to-action {
       margin-top: 40px;
       max-width: 40%;
       min-width: 40%; }
+      @media screen and (max-width: 1000px) {
+        .form .form-calls .call-to-action {
+          max-width: 100%;
+          min-width: 100%; } }
       .form .form-calls .call-to-action .write-letter {
         background-color: #373C56; }
       .form .form-calls .call-to-action .see-letter {
@@ -280,6 +306,9 @@ header {
       .form .form-calls .call-to-action.or {
         max-width: 10%;
         min-width: 10%; }
+        @media screen and (max-width: 1000px) {
+          .form .form-calls .call-to-action.or {
+            display: none; } }
         .form .form-calls .call-to-action.or .title {
           font-size: 14px;
           text-transform: none;
@@ -300,6 +329,9 @@ header {
     border: 1px #FFFFFF solid;
     padding: 15px;
     color: #FFFFFF; }
+    @media screen and (max-width: 600px) {
+      #lettersTarget .letter {
+        width: 100%; } }
     #lettersTarget .letter .letter-text {
       font-size: 14px;
       padding-top: 15px;
@@ -313,6 +345,13 @@ header {
       background-color: #99BDC3;
       border-radius: 4px;
       cursor: pointer; }
+      @media screen and (max-width: 600px) {
+        #lettersTarget .letter .button-accept-letter {
+          width: 260px; } }
+      @media screen and (max-width: 350px) {
+        #lettersTarget .letter .button-accept-letter {
+          width: 200px;
+          font-size: 12px; } }
       #lettersTarget .letter .button-accept-letter i {
         padding-right: 5px; }
       #lettersTarget .letter .button-accept-letter:hover {
@@ -351,6 +390,12 @@ footer {
   color: #FFFFFF;
   background-color: #373C56;
   padding: 15px 150px; }
+  @media screen and (max-width: 1000px) {
+    footer {
+      padding: 15px 50px; } }
+  @media screen and (max-width: 700px) {
+    footer {
+      padding: 15px 20px; } }
   footer .contact-block {
     width: 100%;
     display: flex;
@@ -361,6 +406,9 @@ footer {
     footer .contact-block .contact {
       padding: 30px;
       font-size: 20px; }
+      @media screen and (max-width: 550px) {
+        footer .contact-block .contact {
+          padding: 30px 5px; } }
       footer .contact-block .contact a {
         color: #FFFFFF;
         text-decoration: none;

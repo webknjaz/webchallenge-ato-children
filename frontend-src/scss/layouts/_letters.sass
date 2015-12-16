@@ -7,6 +7,8 @@
     font-size: 24px
   .letter
     width: 80%
+    @media screen and (max-width: 600px)
+      width: 100%
     margin: 30px auto
     min-height: 120px
     border-radius: 4px
@@ -19,6 +21,11 @@
       padding-bottom: 30px
     .button-accept-letter
       width: 400px
+      @media screen and (max-width: 600px)
+        width: 260px
+      @media screen and (max-width: 350px)
+        width: 200px
+        font-size: 12px
       margin: auto
       text-align: center
       height: 40px
