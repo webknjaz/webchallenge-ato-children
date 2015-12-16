@@ -110,7 +110,7 @@ var LetterForm = React.createClass({
     return(
       <Formsy.Form onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="form-common" id="letterform">
         <ValidatedInput type="text"  placeholder="Ім'я" name="mom" validationError="Це не схоже на ім'я" required/>
-        <ValidatedInput type="text"  placeholder="Номер телефону" name="tel" validations={{matchRegexp: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/}} validationError="Це не схоже на номер телефону" required/>
+        <ValidatedInput type="text"  placeholder="Номер телефону без +38" name="tel" validations={{matchRegexp: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/}} validationError="Це не схоже на номер телефону" required/>
         <ApiSelect source="/api/regions/" onChange="regionSelected" name="region"/>
         <ValidatedInput type="text" placeholder="Місто/селище" name="city" validationError="Вкажіть назву міста" required/>
         <textarea name="letter" form="letterform" value={this.state.letterText} onChange={this.textDataEntered} required/>
@@ -411,7 +411,7 @@ var PopupForm = React.createClass({
     return(
       <Formsy.Form onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="form-common" id="letterform">
         <ValidatedInput type="text"  placeholder="Ім'я" name="name" validationError="Це не схоже на ім'я" required/>
-        <ValidatedInput type="text"  placeholder="Номер телефону" name="tel" validations={{matchRegexp: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/}} validationError="Це не схоже на номер телефону" required/>
+        <ValidatedInput type="text"  placeholder="Номер телефону без +38" name="tel" validations={{matchRegexp: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/}} validationError="Це не схоже на номер телефону" required/>
         <button type="submit" disabled={!this.state.canSubmit} className={this.loaderStatus()}><i className="fa fa-circle-o-notch fa-spin"></i> Відправити координаторам</button>
       </Formsy.Form>
     )
