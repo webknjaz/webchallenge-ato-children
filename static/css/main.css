@@ -159,6 +159,10 @@ img {
     border-radius: 0;
     background-color: #99BDC3;
     margin-top: 30px; }
+    .form-common button i {
+      display: none; }
+    .form-common button.loading i {
+      display: inline-block; }
     .form-common button:disabled {
       background-color: #FFFFFF;
       border: 1px #373C56 solid;
@@ -225,11 +229,13 @@ header {
   padding: 0 150px; }
   .content .content-item {
     display: flex;
-    justify-content: center; }
+    justify-content: center;
+    overflow: hidden; }
 
 .form {
   min-height: 100px;
-  width: 100%; }
+  width: 100%;
+  overflow: hidden; }
   .form .form-triangle {
     width: 0;
     height: 0;
@@ -239,7 +245,12 @@ header {
   .form .form-body {
     background-color: #FFFFFF;
     font-family: 'Campton-Book';
-    padding: 0 15px 60px 60px; }
+    padding: 0 60px 30px 60px; }
+    .form .form-body .success {
+      margin-top: 30px;
+      padding: 15px 60px;
+      border: 1px solid #99BDC3;
+      border-radius: 4px; }
     .form .form-body p {
       padding: 10px 0;
       font-size: 17px;
