@@ -256,7 +256,7 @@ var NoLettersMessage = React.createClass({
 var Letter = React.createClass({
   handleClick: function(){
     ReactDOM.render(
-      <Popup data={this.props.data.id}/>,
+      <Popup data={this.props.data.url}/>,
       document.getElementById('popupTarget')
     )
   },
