@@ -249,6 +249,9 @@ header {
     display: flex;
     justify-content: center;
     overflow: hidden; }
+    @media screen and (max-width: 550px) {
+      .content .content-item .logo {
+        display: none; } }
 
 .form {
   min-height: 100px;
@@ -267,6 +270,9 @@ header {
     background-color: #FFFFFF;
     font-family: 'Campton-Book';
     padding: 0 60px 30px 60px; }
+    @media screen and (max-width: 1000px) {
+      .form .form-body {
+        padding: 0 10px 30px 10px; } }
     .form .form-body .success {
       margin-top: 30px;
       padding: 15px 60px;
@@ -415,19 +421,25 @@ footer {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    flex-direction: row; }
-    footer .contact-block .contact {
-      padding: 30px;
-      font-size: 20px; }
-      @media screen and (max-width: 550px) {
-        footer .contact-block .contact {
-          padding: 30px 5px; } }
-      footer .contact-block .contact a {
-        color: #FFFFFF;
-        text-decoration: none;
-        cursor: pointer; }
-        footer .contact-block .contact a:hover {
-          color: #99BDC3; }
+    flex-direction: column; }
+    footer .contact-block .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      flex-direction: row; }
+      footer .contact-block .contact-item .contact {
+        padding: 30px;
+        font-size: 20px; }
+        @media screen and (max-width: 550px) {
+          footer .contact-block .contact-item .contact {
+            padding: 30px 10px; } }
+        footer .contact-block .contact-item .contact a {
+          color: #FFFFFF;
+          text-decoration: none;
+          cursor: pointer; }
+          footer .contact-block .contact-item .contact a:hover {
+            color: #99BDC3; }
   footer .copyright {
     text-align: center;
     font-size: 12px; }

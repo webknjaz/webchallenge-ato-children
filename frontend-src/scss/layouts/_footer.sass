@@ -12,18 +12,24 @@ footer
     align-items: center
     justify-content: center
     flex-wrap: wrap
-    flex-direction: row
-    .contact
-      padding: 30px
-      @media screen and (max-width: 550px)
-        padding: 30px 5px
-      font-size: 20px
-      a
-        color: $white
-        text-decoration: none
-        cursor: pointer
-        &:hover
-          color: $light-blue
+    flex-direction: column
+    .contact-item
+      display: flex
+      align-items: center
+      justify-content: center
+      flex-wrap: wrap
+      flex-direction: row
+      .contact
+        padding: 30px
+        @media screen and (max-width: 550px)
+          padding: 30px 10px
+        font-size: 20px
+        a
+          color: $white
+          text-decoration: none
+          cursor: pointer
+          &:hover
+            color: $light-blue
   .copyright
     text-align: center
     font-size: 12px
