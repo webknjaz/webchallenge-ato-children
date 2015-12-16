@@ -188,13 +188,29 @@ var Letters = React.createClass({
   componentDidMount: function() {
     this.loadMoreLetters()
   },
+  noLettersCheck: function(){
+    if(this.state.results.length == 0){
+      return <NoLettersMessage/>
+    }
+  },
   render: function(){
     return(
       <div>
         <Regions source="/api/regions/"/>
+        {this.noLettersCheck()}
         {this.state.results.map(function(result, index){
           return <Letter key={index} data={result}/>;
         })}
+      </div>
+    )
+  }
+})
+
+var NoLettersMessage = React.createClass({
+  render: function(){
+    return(
+      <div className="noletters">
+        <p> Упс, схоже у нас немає листів!</p>
       </div>
     )
   }
