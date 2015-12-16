@@ -1,5 +1,10 @@
 .content
   padding: 0 $margin-content-big
+  @media screen and (max-width: 1000px)
+    padding: 0 $margin-content-medium
+  @media screen and (max-width: 700px)
+    padding: 0 $margin-content-small
   .content-item
     display: flex
     justify-content: center
+    overflow: hidden

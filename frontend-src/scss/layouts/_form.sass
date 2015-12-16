@@ -1,22 +1,32 @@
 .form
   min-height: 100px
   width: 100%
+  overflow: hidden
   .form-triangle
     width: 0
     height: 0
     border-style: solid
     border-width: 0 calc(50vw - 150px) 80px calc(50vw - 150px)
     border-color: transparent transparent $white transparent
+    @media screen and (max-width: 1000px)
+      display: none
   .form-body
     background-color: $white
     font-family: 'Campton-Book'
-    padding: 0 15px 60px 60px
+    padding: 0 60px 30px 60px
+    .success
+      margin-top: 30px
+      padding: 15px 60px
+      border: 1px solid $light-blue
+      border-radius: 4px
     p
       padding: 10px 0
       font-size: 17px
       color: $dark-blue
       line-height: 22px
     .title
+      @media screen and (max-width: 1000px)
+        padding-top: 30px
       text-align: center
       font-weight: 900
       font-size: 24px
@@ -28,10 +38,14 @@
   .form-calls
     display: flex
     justify-content: center
+    flex-wrap: wrap
     .call-to-action
       margin-top: 40px
       max-width: 40%
       min-width: 40%
+      @media screen and (max-width: 1000px)
+        max-width: 100%
+        min-width: 100%
       .write-letter
         background-color: $dark-blue
       .see-letter
@@ -41,6 +55,8 @@
       &.or
         max-width: 10%
         min-width: 10%
+        @media screen and (max-width: 1000px)
+          display: none
         .title
           font-size: 14px
           text-transform: none

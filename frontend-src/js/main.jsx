@@ -21,7 +21,7 @@ var WriteLetterButton = React.createClass({
   },
   render: function(){
     return(
-      <div className="button write-letter" onClick={this.handleClick}> Написати </div>
+      <div className="button write-letter" onClick={this.handleClick}><i className="fa fa-envelope-o"></i> Написати </div>
     )
   }
 })
@@ -32,17 +32,29 @@ var SeeLetterButton = React.createClass({
   },
   render: function(){
     return(
-      <div className="button see-letter" onClick={this.handleClick}> Подарувати </div>
+      <div className="button see-letter" onClick={this.handleClick}><i className="fa fa-gift"></i> Подарувати </div>
     )
   }
 })
 
+var LetterSendInfoMsg = React.createClass({
+  render: () => {
+    return(
+      <div className="success">
+        <p>
+          <i className="fa fa-paper-plane-o"></i> Ваш лист надіслано! Після перевірки модераторами він з&#39;явиться в основному блоці сайту. Якщо вам здається, що з цим виникли якісь проблеми, будь ласка, зверніться до нас за контактами, які можна знайти внизу сайту.
+        </p>
+      </div>
+    )
+  }
+})
 
 var LetterForm = React.createClass({
   getInitialState: function () {
     return {
       canSubmit: false,
-      letterText: 'Святий Миколаю, я'
+      letterText: 'Святий Миколаю, я',
+      loading: false
     }
   },
   enableButton: function () {
@@ -58,14 +70,26 @@ var LetterForm = React.createClass({
   submit: function (model) {
     model.letter = this.state.letterText
     model.tel.replace(/[^\d]/gi, '').replace(/^3?8/gi, '')
+    this.setState({
+      loading: true
+    });
+    self = this
     $.ajax({
       method: "POST",
       url: (api_base + '/api/gifts/'),
       data: model
     })
     .done(function( msg ) {
-      alert("Send");
-    });
+      self.setState({
+        loading: false
+      })
+      ReactDOM.unmountComponentAtNode(document.getElementById('LetterFormTarget'))
+      ReactDOM.render(
+        <LetterSendInfoMsg/>,
+        document.getElementById('LetterFormTarget')
+      )
+      scrollDown($("#writeLetterTarget"))
+    })
   },
   textDataEntered: function(e){
     this.setState({
@@ -75,6 +99,12 @@ var LetterForm = React.createClass({
   regionSelected: function(id){
 
   },
+  loaderStatus: function(){
+    if(this.state.loading)
+      return 'loading'
+    if(this.state.loading)
+      return 'not-active'
+  },
   render: function(){
     return(
       <Formsy.Form onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="form-common" id="letterform">
@@ -83,7 +113,7 @@ var LetterForm = React.createClass({
         <ApiSelect source="/api/regions/" onChange="regionSelected" name="region"/>
         <ValidatedInput type="text" placeholder="Місто/селище" name="city" validationError="Вкажіть назву міста" required/>
         <textarea name="letter" form="letterform" value={this.state.letterText} onChange={this.textDataEntered} required/>
-        <button type="submit" disabled={!this.state.canSubmit}>Надіслати листа</button>
+        <button type="submit" disabled={!this.state.canSubmit} className={this.loaderStatus()}><i className="fa fa-circle-o-notch fa-spin"></i> Надіслати листа</button>
       </Formsy.Form>
     )
   }
@@ -143,14 +173,20 @@ var ApiSelect = React.createClass({
 
 var Letters = React.createClass({
   getInitialState: function(){
-    return {results: []}
+    return {
+      results: [],
+      currentRegion: false
+    }
   },
   loadMoreLetters: function(){
-    var url = api_base + this.props.source
+    var url = api_base + this.props.source + '?status=1'
+    if(!isNaN(parseFloat(this.state.currentRegion)) && isFinite(this.state.currentRegion)){
+      var url = api_base + this.props.source + '?status=1&region=' + this.state.currentRegion
+    }
     $.get(url, function(result) {
       if (this.isMounted()) {
         this.setState({
-          results: $.merge(this.state.results, result.results),
+          results: result.results
         })
       }
     }.bind(this))
@@ -158,13 +194,60 @@ var Letters = React.createClass({
   componentDidMount: function() {
     this.loadMoreLetters()
   },
+  noLettersCheck: function(){
+    if(this.state.results.length == 0){
+      return <NoLettersMessage/>
+    }
+  },
+  handleRegion: function(id){
+    this.setState({
+      currentRegion: id
+    },function(){
+      this.loadMoreLetters()
+    })
+  },
+  backBtnCheck: function(){
+    if(!isNaN(parseFloat(this.state.currentRegion)) && isFinite(this.state.currentRegion)){
+      return <Back handleClick={this.backToAll}/>
+    }
+  },
+  backToAll: function(){
+    this.setState({
+      currentRegion: false
+    },function(){
+      this.loadMoreLetters()
+    })
+  },
   render: function(){
     return(
       <div>
-        <Regions source="/api/regions/"/>
+        <Regions source="/api/regions/" handleClick = {this.handleRegion}/>
+        {this.backBtnCheck()}
+        {this.noLettersCheck()}
         {this.state.results.map(function(result, index){
           return <Letter key={index} data={result}/>;
         })}
+      </div>
+    )
+  }
+})
+var Back = React.createClass({
+  handleClick: function(){
+    this.props.handleClick()
+  },
+  render: function(){
+    return(
+      <p className="backbtn">
+        <span onClick={this.handleClick}> &#8592; До усіх листів</span>
+      </p>
+    )
+  }
+})
+var NoLettersMessage = React.createClass({
+  render: function(){
+    return(
+      <div className="noletters">
+        <p> Упс, схоже у нас немає листів!</p>
       </div>
     )
   }
@@ -212,12 +295,15 @@ var Regions = React.createClass({
     }.bind(this))
   },
   render: function() {
-    var length = this.state.results.length
-    var column_length = Math.floor(this.state.results.length/5)
+    var results = this.state.results
+    var callback = this.props.handleClick
+    results = results.map(function(result, index){result.callback = callback; return result})
+    var length = results.length
+    var column_length = Math.floor(length/5)
     var columns = []
     for (var i = 0; i < 5; i++) {
-      columns[i] = this.state.results.slice(column_length*i, (column_length*(i+1)))
-      if (i==4) columns[i] = this.state.results.slice(column_length*i, length)
+      columns[i] = results.slice(column_length*i, (column_length*(i+1)))
+      if (i==4) columns[i] = results.slice(column_length*i, length)
     }
     return(
        <div className="regions-block">
@@ -244,11 +330,7 @@ var RegionsColumn = React.createClass({
 
 var Region = React.createClass({
   handleClick: function() {
-    // ReactDOM.unmountComponentAtNode(document.getElementById('resultsTarget'))
-    // ReactDOM.render(
-    //   <Stores source={api_base +"/Regionies/"+this.props.data.id+"/stores"} count="8" searchable={false} Regiony={true} scrollToBottom={true}/>,
-    //   document.getElementById('resultsTarget')
-    // )
+    this.props.data.callback(this.props.data.id)
   },
   render: function() {
     return <li key={this.props.data.id} onClick={this.handleClick}> {this.props.data.name}</li>;
@@ -285,6 +367,7 @@ var PopupForm = React.createClass({
   getInitialState: function () {
     return {
       canSubmit: false,
+      loading: false
     }
   },
   enableButton: function () {
@@ -298,9 +381,13 @@ var PopupForm = React.createClass({
     });
   },
   submit: function (model) {
+    this.setState({
+      loading: true
+    });
     model.cover_letter = 'x'
     model.tel.replace(/[^\d]/gi, '').replace(/^3?8/gi, '')
     model.gift = this.props.data
+    self = this
     $.ajax({
       method: "POST",
       url: (api_base + '/api/volunteers/'),
@@ -308,14 +395,23 @@ var PopupForm = React.createClass({
     })
     .done(function( msg ) {
       ReactDOM.unmountComponentAtNode(document.getElementById('popupTarget'))
+      self.setState({
+        loading: false
+      });
     });
+  },
+  loaderStatus: function(){
+    if(this.state.loading)
+      return 'loading'
+    if(this.state.loading)
+      return 'not-active'
   },
   render: function(){
     return(
       <Formsy.Form onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="form-common" id="letterform">
         <ValidatedInput type="text"  placeholder="Ім'я" name="name" validationError="Це не схоже на ім'я" required/>
         <ValidatedInput type="text"  placeholder="Номер телефону" name="tel" validations={{matchRegexp: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/}} validationError="Це не схоже на номер телефону" required/>
-        <button type="submit" disabled={!this.state.canSubmit}>Відправити координаторам</button>
+        <button type="submit" disabled={!this.state.canSubmit} className={this.loaderStatus()}><i className="fa fa-circle-o-notch fa-spin"></i> Відправити координаторам</button>
       </Formsy.Form>
     )
   }

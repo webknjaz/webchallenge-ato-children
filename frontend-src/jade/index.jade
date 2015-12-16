@@ -8,12 +8,22 @@ include templates/popup
 
 html(lang="en")
   head
-     title Some Name here
+     title Наші діти
      meta(charset='utf-8')
      meta(name="viewport", content="width=device-width, initial-scale=1")
      link(rel="stylesheet", type="text/css", href="/static/css/main.css")
      script(type="text/javascript", src="/static/js/app.js")
      link(rel="stylesheet" href="/static/fa/css/font-awesome.min.css")
+     meta(property="og:type" content="article")
+     meta(property="og:title" content="Подаруй свято дітям Героїв")
+     meta(property="og:description" content="Протягом отанніх двох років сотні військовослужбовців загинули, захищаючи нашу країну. Багато дітей стали частково сиротами. Ми віримо, що наша місія - зробити цих дітей хоч трішки щасливішими. Допоможіть матерям покласти дітям 19 грудня під подушку чи 1 січня під ялинку омріяний подарунок.")
+     meta(property="og:url" content="ourkids.org.ua")
+     meta(property="og:image" content="http://ato-children.herokuapp.com/static/images/Bearsimage.png")
+     meta(name="twitter:card" content="summary_large_image")
+     meta(name="twitter:creator" content="@volodymyrlut")
+     meta(name="twitter:title" content="Подаруй свято дітям Героїв")
+     meta(name="twitter:description" content="Допоможіть матерям покласти дітям під подушку омріяний подарунок.")
+     meta(name="twitter:image" content="http://ato-children.herokuapp.com/static/images/Bearsimage.png")
   body
     mixin popup
     .gradient-block
