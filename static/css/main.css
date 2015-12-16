@@ -229,6 +229,9 @@ header {
       margin: 0 5px;
       font-size: 15px;
       font-weight: 100; }
+      header ul li a {
+        text-decoration: none;
+        color: #FFFFFF; }
       header ul li.active {
         border: 1px solid #FFFFFF; }
       header ul li:hover {
@@ -321,6 +324,16 @@ header {
     color: #FFFFFF;
     text-align: center;
     font-size: 24px; }
+  #lettersTarget .backbtn {
+    color: #FFFFFF;
+    margin-left: 10%; }
+    @media screen and (max-width: 600px) {
+      #lettersTarget .backbtn {
+        margin-left: 0; } }
+    #lettersTarget .backbtn span {
+      cursor: pointer; }
+      #lettersTarget .backbtn span:hover {
+        text-decoration: underline; }
   #lettersTarget .letter {
     width: 80%;
     margin: 30px auto;
@@ -428,7 +441,7 @@ footer {
   justify-content: center;
   text-align: center; }
   .regions-block ul {
-    padding: 0 20px; }
+    padding: 10px 20px; }
     .regions-block ul li {
       padding: 5px 0;
       cursor: pointer; }

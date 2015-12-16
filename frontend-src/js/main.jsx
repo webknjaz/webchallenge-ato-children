@@ -173,14 +173,20 @@ var ApiSelect = React.createClass({
 
 var Letters = React.createClass({
   getInitialState: function(){
-    return {results: []}
+    return {
+      results: [],
+      currentRegion: false
+    }
   },
   loadMoreLetters: function(){
-    var url = api_base + this.props.source
+    var url = api_base + this.props.source + '?status=1'
+    if(!isNaN(parseFloat(this.state.currentRegion)) && isFinite(this.state.currentRegion)){
+      var url = api_base + this.props.source + '?status=1&region=' + this.state.currentRegion
+    }
     $.get(url, function(result) {
       if (this.isMounted()) {
         this.setState({
-          results: $.merge(this.state.results, result.results),
+          results: result.results
         })
       }
     }.bind(this))
@@ -193,10 +199,30 @@ var Letters = React.createClass({
       return <NoLettersMessage/>
     }
   },
+  handleRegion: function(id){
+    this.setState({
+      currentRegion: id
+    },function(){
+      this.loadMoreLetters()
+    })
+  },
+  backBtnCheck: function(){
+    if(!isNaN(parseFloat(this.state.currentRegion)) && isFinite(this.state.currentRegion)){
+      return <Back handleClick={this.backToAll}/>
+    }
+  },
+  backToAll: function(){
+    this.setState({
+      currentRegion: false
+    },function(){
+      this.loadMoreLetters()
+    })
+  },
   render: function(){
     return(
       <div>
-        <Regions source="/api/regions/"/>
+        <Regions source="/api/regions/" handleClick = {this.handleRegion}/>
+        {this.backBtnCheck()}
         {this.noLettersCheck()}
         {this.state.results.map(function(result, index){
           return <Letter key={index} data={result}/>;
@@ -205,7 +231,18 @@ var Letters = React.createClass({
     )
   }
 })
-
+var Back = React.createClass({
+  handleClick: function(){
+    this.props.handleClick()
+  },
+  render: function(){
+    return(
+      <p className="backbtn">
+        <span onClick={this.handleClick}> &#8592; До усіх листів</span>
+      </p>
+    )
+  }
+})
 var NoLettersMessage = React.createClass({
   render: function(){
     return(
@@ -258,12 +295,15 @@ var Regions = React.createClass({
     }.bind(this))
   },
   render: function() {
-    var length = this.state.results.length
-    var column_length = Math.floor(this.state.results.length/5)
+    var results = this.state.results
+    var callback = this.props.handleClick
+    results = results.map(function(result, index){result.callback = callback; return result})
+    var length = results.length
+    var column_length = Math.floor(length/5)
     var columns = []
     for (var i = 0; i < 5; i++) {
-      columns[i] = this.state.results.slice(column_length*i, (column_length*(i+1)))
-      if (i==4) columns[i] = this.state.results.slice(column_length*i, length)
+      columns[i] = results.slice(column_length*i, (column_length*(i+1)))
+      if (i==4) columns[i] = results.slice(column_length*i, length)
     }
     return(
        <div className="regions-block">
@@ -290,11 +330,7 @@ var RegionsColumn = React.createClass({
 
 var Region = React.createClass({
   handleClick: function() {
-    // ReactDOM.unmountComponentAtNode(document.getElementById('resultsTarget'))
-    // ReactDOM.render(
-    //   <Stores source={api_base +"/Regionies/"+this.props.data.id+"/stores"} count="8" searchable={false} Regiony={true} scrollToBottom={true}/>,
-    //   document.getElementById('resultsTarget')
-    // )
+    this.props.data.callback(this.props.data.id)
   },
   render: function() {
     return <li key={this.props.data.id} onClick={this.handleClick}> {this.props.data.name}</li>;
